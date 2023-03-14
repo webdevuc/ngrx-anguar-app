@@ -4,7 +4,7 @@
             <div class="d-flex position-relative">
                 <input type="text" [(ngModel)]="searchEmailValue" placeholder="Search by email" class="form-control" />
                 <mat-icon *ngIf="searchEmailValue" class="position-absolute right-0 top-6 pointer"
-                    (click)="getUsersList()">close</mat-icon>
+                    (click)="getUsersList();searchEmailValue=''">close</mat-icon>
             </div>
 
             <div class="ms-2">
