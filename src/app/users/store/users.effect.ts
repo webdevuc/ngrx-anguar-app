@@ -23,7 +23,6 @@ export class UsersEffect {
             ofType(invokeUsersAPI),
             withLatestFrom(this.store.pipe(select(selectUsers))),
             mergeMap(([, usersformStore]) => {
-                console.log('usersformStore =>', usersformStore)
                 if (usersformStore.length > 0) {
                     return EMPTY;
                 }

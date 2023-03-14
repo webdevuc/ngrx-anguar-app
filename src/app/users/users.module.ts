@@ -1,15 +1,14 @@
+import { SharedModule } from './../shared/module/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { UsersEffect } from './store/users.effect';
 import { userReducer } from './store/users.reducer';
 import { StoreModule } from '@ngrx/store';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
 import { AddComponent } from './add/add.component';
-import { FormsModule } from '@angular/forms';
-
 
 @NgModule({
   declarations: [
@@ -21,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     UsersRoutingModule,
     StoreModule.forFeature('myUsers', userReducer),
     EffectsModule.forFeature([UsersEffect]),
-    FormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    SharedModule
   ]
 })
 export class UsersModule { }

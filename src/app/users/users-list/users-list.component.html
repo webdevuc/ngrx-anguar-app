@@ -1,21 +1,34 @@
 <div class="container my-4">
-    <div class="d-flex w-100 justify-content-end">
-        <a routerLink="/add" class="btn btn-dark">Add A New User</a>
+    <div class="d-flex w-100 justify-content-between mb-4">
+        <div class="col-md-6 d-flex">
+            <div class="d-flex position-relative">
+                <input type="text" [(ngModel)]="searchEmailValue" placeholder="Search by email" class="form-control" />
+                <mat-icon *ngIf="searchEmailValue" class="position-absolute right-0 top-6 pointer"
+                    (click)="getUsersList()">close</mat-icon>
+            </div>
+
+            <div class="ms-2">
+                <button type="button" class="btn btn-dark" (click)="searchEmail(searchEmailValue)">Search</button>
+            </div>
+        </div>
+
+        <button type="button" (click)="openAddUserModal()" class="btn btn-dark">Add A New User</button>
     </div>
     <div class="d-flex w-100">
-        <div class="col-md-8 mx-auto">
-            <table class="table table-striped w-100">
-                <thead>
-                    <th>Name</th>
-                    <th>Email</th>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let user of users$ | async">
-                        <td>{{user.name}}</td>
-                        <td>{{user.email}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table class="table table-striped w-100">
+            <thead>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users$ | async">
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td> <mat-icon class="pointer" [routerLink]="['/details', user.id]">info</mat-icon></td>
+                </tr>
+            </tbody>
+        </table>
+
     </div>
 </div>

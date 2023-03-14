@@ -1,0 +1,20 @@
+<div class="container py-5">
+    <div class="d-flex w-100">
+        <mat-tab-group class="w-100" mat-stretch-tabs="false" mat-align-tabs="center">
+            <mat-tab label="User Info">
+
+                <mat-tab-group class="w-100" mat-stretch-tabs="false" mat-align-tabs="start">
+                    <mat-tab label="Basic Details">
+                        <app-basic-details [userDetails]="userDetails"></app-basic-details>
+                    </mat-tab>
+                    <mat-tab label="Address Details">
+                        <app-address-details></app-address-details>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-tab>
+            <mat-tab label="History">
+                <p>Users History</p>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
