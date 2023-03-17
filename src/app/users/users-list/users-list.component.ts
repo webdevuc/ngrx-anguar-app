@@ -1,3 +1,5 @@
+import { UsersService } from './../users.service';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { Store, select } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { selectUsers } from '../store/users.selector';
@@ -16,17 +18,29 @@ export class UsersListComponent {
   public users$: any;
   public searchEmailValue: string = '';
 
-  constructor(private store: Store, private dialog: MatDialog) { }
+  constructor(private store: Store, private dialog: MatDialog, private dbService: NgxIndexedDBService, private userService: UsersService) { }
 
 
 
   ngOnInit(): void {
     this.store.dispatch(invokeUsersAPI());
+    this.userService._subjectUser.subscribe(response => {
+      if (response) {
+        this.getUsersList();
+      }
+    });
     this.getUsersList();
+
   }
 
   getUsersList() {
-    this.users$ = this.store.pipe(select(selectUsers));
+    // this.users$ = this.store.pipe(select(selectUsers));
+    // this.users$ = this.store.pipe(select(selectUsers));
+
+    this.dbService.getAll('users').subscribe((response) => {
+      console.log('response =>', response);
+      this.users$ = response;
+    })
 
   }
 

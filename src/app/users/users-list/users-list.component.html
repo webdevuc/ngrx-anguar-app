@@ -22,7 +22,7 @@
                 <th>Action</th>
             </thead>
             <tbody>
-                <tr *ngFor="let user of users$ | async">
+                <tr *ngFor="let user of users$ | filter:searchEmailValue">
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
                     <td> <mat-icon class="pointer" [routerLink]="['/details', user.id]">info</mat-icon></td>

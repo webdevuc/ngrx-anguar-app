@@ -1,3 +1,4 @@
+import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
 import { SharedModule } from './shared/module/shared/shared.module';
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,6 +12,18 @@ import { HttpClientModule } from '@angular/common/http'
 import { appReducer } from './shared/store/app.reducer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+const dbConfig: DBConfig = {
+  name: 'myUsers',
+  version: 1,
+  objectStoresMeta: [{
+    store: 'users',
+    storeConfig: { keyPath: 'id', autoIncrement: true },
+    storeSchema: [
+      { name: 'name', keypath: 'name', options: { unique: false } },
+      { name: 'email', keypath: 'email', options: { unique: false } }
+    ]
+  }]
+};
 @NgModule({
   declarations: [
     AppComponent
@@ -23,7 +36,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     HttpClientModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    NgxIndexedDBModule.forRoot(dbConfig)
   ],
 
   providers: [],

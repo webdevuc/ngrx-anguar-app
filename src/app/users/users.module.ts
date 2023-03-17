@@ -9,11 +9,14 @@ import { CommonModule } from '@angular/common';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
 import { AddComponent } from './add/add.component';
+import { FilterPipe } from '../shared/pipes/filter.pipe';
+
 
 @NgModule({
   declarations: [
     UsersListComponent,
-    AddComponent
+    AddComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
@@ -22,7 +25,7 @@ import { AddComponent } from './add/add.component';
     EffectsModule.forFeature([UsersEffect]),
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class UsersModule { }

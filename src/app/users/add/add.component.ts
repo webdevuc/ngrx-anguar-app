@@ -1,3 +1,5 @@
+import { UsersService } from './../users.service';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { invokeSaveNewUserAPI } from './../store/users.action';
 import { Appstate } from './../../shared/store/appstate';
 import { Store, select } from '@ngrx/store';
@@ -18,7 +20,7 @@ export class AddComponent implements OnInit {
   public isSubmmited: boolean = false;
 
   constructor(private store: Store, private dialogRef: MatDialogRef<AddComponent>,
-    private appStore: Store<Appstate>, public fb: FormBuilder,) { }
+    private appStore: Store<Appstate>, public fb: FormBuilder, private dbService: NgxIndexedDBService, private userService: UsersService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -39,6 +41,10 @@ export class AddComponent implements OnInit {
       return
     }
 
+    //save in index db
+    this.saveByIndexDB();
+
+    return
     this.store.dispatch(invokeSaveNewUserAPI({ newUser: this.userForm.value }));
     let apiStatus$ = this.appStore.pipe(select(selectAppState));
     apiStatus$.subscribe((apState) => {
@@ -50,5 +56,17 @@ export class AddComponent implements OnInit {
         this.isSubmmited = false;
       }
     });
+  }
+
+  saveByIndexDB() {
+    this.dbService
+      .add('users', this.userForm.value)
+      .subscribe((key) => {
+        this.userService._subjectUser.next(true);
+        this.dialogRef.close();
+        this.isSubmmited = false;
+
+      });
+
   }
 }
